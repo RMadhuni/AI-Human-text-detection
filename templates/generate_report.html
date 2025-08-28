@@ -1,0 +1,18 @@
+<!-- form_page.html -->
+<form method="post">
+    {% csrf_token %}
+    <textarea name="text" rows="6" cols="60" placeholder="Paste text here...">{{ request.POST.text }}</textarea>
+    <br>
+    <button type="submit">Submit</button>
+  </form>
+  
+  {% if label %}
+  <div style="margin-top: 20px; padding: 15px; border: 1px solid #ccc;">
+    <h3>📝 Input Preview</h3>
+    <p><strong>Input Text:</strong> {{ input }}</p>
+    <p><strong>Prediction:</strong> {{ label }}</p>
+    <p><strong>Confidence:</strong> {{ confidence }}</p>
+    <p><strong>Explanation:</strong> {{ explanation }}</p>
+  </div>
+  {% endif %}
+  

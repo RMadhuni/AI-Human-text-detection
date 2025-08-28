@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI/Human Text Detection</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Header Styles */
+    .main-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      background-color: #ffffff;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .left-section {
+      flex-shrink: 0;
+    }
+
+    .right-section {
+      flex-shrink: 0;
+    }
+
+    .center-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      flex: 1;
+    }
+
+    .logo-text {
+      font-size: 22px;
+      font-weight: bold;
+      color: #2d7a3e;
+      transition: color 0.3s ease;
+    }
+
+    .center-section a {
+      text-decoration: none;
+      font-weight: bold;
+      color: #333;
+      transition: color 0.3s ease;
+    }
+
+    .center-section a:hover {
+      color: #10a37f;
+    }
+
+    .user-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .user-button {
+      background-color: #eee;
+      border: none;
+      border-radius: 50%;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: white;
+      min-width: 180px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      border-radius: 6px;
+    }
+
+    .dropdown-content a,
+    .dropdown-content label {
+      color: #333;
+      padding: 10px 16px;
+      text-decoration: none;
+      display: block;
+      cursor: pointer;
+    }
+
+    .dropdown-content a:hover,
+    .dropdown-content label:hover {
+      background-color: #f0f0f0;
+    }
+
+    .user-dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .container-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 0;
+    }
+
+    .chatgpt-container {
+      background-color: #ffffff;
+      width: 90%;
+      max-width: 800px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+
+    .header {
+      font-size: 20px;
+      font-weight: bold;
+      color: #000000;
+      margin-bottom: 20px;
+      text-align: center;
+      transition: color 0.3s ease;
+    }
+
+    .upload-container {
+      background-color: #f0f0f0;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .upload-container label {
+      color: #000000;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .upload-container textarea {
+      width: 100%;
+      min-height: 100px;
+      resize: none;
+      border-radius: 6px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background-color: #ffffff;
+      color: #000000;
+      margin-bottom: 15px;
+    }
+
+    .upload-container input[type="file"] {
+      width: 100%;
+      background-color: #ffffff;
+      color: #000000;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 8px;
+      margin-bottom: 15px;
+    }
+
+    .submit-button {
+      width: 100%;
+      padding: 12px;
+      background-color: #10a37f;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .submit-button:hover {
+      background-color: #0e8f6c;
+    }
+
+    .conversation {
+      height: 300px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      padding: 20px;
+      overflow-y: auto;
+      color: #000000;
+    }
+
+    /* Dark Mode Styles */
+    body.dark-mode {
+      background-color: #1e1e1e;
+      color: #f5f5f5;
+    }
+
+    body.dark-mode .main-header {
+      background-color: #2a2a2a;
+      border-bottom: 1px solid #444;
+    }
+
+    body.dark-mode .logo-text {
+      color: #66ff99;
+    }
+
+    body.dark-mode .center-section a {
+      color: #ffffff;
+    }
+
+    body.dark-mode .center-section a:hover {
+      color: #66ff99;
+    }
+
+    body.dark-mode .chatgpt-container {
+      background-color: #151515;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+    }
+
+    body.dark-mode .upload-container {
+      background-color: #1e1e1e;
+    }
+
+    body.dark-mode .upload-container label {
+      color: #f5f5f5;
+    }
+
+    body.dark-mode .upload-container textarea {
+      background-color: #121212;
+      color: #dcdcdc;
+      border: 1px solid #444;
+    }
+
+    body.dark-mode .upload-container input[type="file"] {
+      background-color: #121212;
+      color: #ccc;
+      border: 1px solid #444;
+    }
+
+    body.dark-mode .submit-button {
+      background-color: #0e8f6c;
+      color: white;
+    }
+
+    body.dark-mode .submit-button:hover {
+      background-color: #0b6f59;
+    }
+
+    body.dark-mode .header {
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <div class="main-header">
+    <div class="left-section">
+      <span class="logo-text">TEXT DETECTOR</span>
+    </div>
+    <a href="{% url 'home' %}">Home</a>
+    <a href="{% url 'review' %}">Review</a>
+    <a href="{% url 'contact' %}">Contact Us</a>
+
+
+    <!-- <div class="center-section">
+        <a href="index.html">Home</a>
+        <a href="review.html">Review</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+       -->
+
+    <div class="right-section">
+      <div class="user-dropdown">
+        <button class="user-button">👤</button>
+        <div class="dropdown-content">
+          <label>
+            Dark Mode
+            <input type="checkbox" id="darkToggle" style="float: right;" />
+          </label>
+          <a href="#">Log Out</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container-wrapper">
+    <div class="chatgpt-container">
+      <div class="header">AI/HUMAN TEXT DETECTOR</div>
+
+      <div class="upload-container">
+        <label for="text">Paste Text:</label>
+        <textarea id="text" placeholder="Enter your assignment or content here..."></textarea>
+
+        <label for="file-upload">Or Upload File:</label>
+        <input type="file" id="file-upload" accept=".txt,.docx,.pdf" />
+
+        <button class="submit-button" onclick="handleSubmit()">Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- File Upload Script -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+
+  <script>
+    function handleSubmit() {
+      const textArea = document.getElementById('text');
+      const fileInput = document.getElementById('file-upload');
+      const file = fileInput.files[0];
+
+      if (textArea.value.trim() !== '') {
+        alert("Text was already entered. Keeping your input.");
+        return;
+      }
+
+      if (!file) {
+        alert("Please paste text or select a file.");
+        return;
+      }
+
+      const fileType = file.name.split('.').pop().toLowerCase();
+
+      if (fileType === 'txt') {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          textArea.value = e.target.result;
+        };
+        reader.readAsText(file);
+      }
+
+      else if (fileType === 'docx') {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          mammoth.extractRawText({ arrayBuffer: e.target.result })
+            .then(result => {
+              textArea.value = result.value;
+            })
+            .catch(err => {
+              alert("Error reading DOCX file.");
+              console.error(err);
+            });
+        };
+        reader.readAsArrayBuffer(file);
+      }
+
+      else if (fileType === 'pdf') {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const typedarray = new Uint8Array(e.target.result);
+
+          pdfjsLib.getDocument({ data: typedarray }).promise
+            .then(pdf => {
+              let allText = '';
+              let readPages = [];
+
+              for (let i = 1; i <= pdf.numPages; i++) {
+                readPages.push(
+                  pdf.getPage(i).then(page => {
+                    return page.getTextContent().then(content => {
+                      const strings = content.items.map(item => item.str).join(' ');
+                      allText += strings + '\n\n';
+                    });
+                  })
+                );
+              }
+
+              Promise.all(readPages).then(() => {
+                textArea.value = allText.trim();
+              });
+
+            })
+            .catch(err => {
+              alert("Error reading PDF file.");
+              console.error(err);
+            });
+        };
+        reader.readAsArrayBuffer(file);
+      }
+
+      else {
+        alert("Unsupported file type. Please upload a .txt, .docx, or .pdf file.");
+      }
+    }
+  </script>
+
+  <!-- Dark Mode Toggle Script -->
+  <script>
+    const darkToggle = document.getElementById('darkToggle');
+    const body = document.body;
+
+    if (localStorage.getItem('darkMode') === 'enabled') {
+      body.classList.add('dark-mode');
+      darkToggle.checked = true;
+    }
+
+    darkToggle.addEventListener('change', () => {
+      if (darkToggle.checked) {
+        body.classList.add('dark-mode');
+        localStorage.setItem('darkMode', 'enabled');
+      } else {
+        body.classList.remove('dark-mode');
+        localStorage.setItem('darkMode', 'disabled');
+      }
+    });
+  </script>
+
+</body>
+</html>

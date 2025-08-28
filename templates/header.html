@@ -1,0 +1,100 @@
+<!-- header.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .main-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      background-color: #ffffff;
+      border-bottom: 1px solid #ccc;
+      font-family: Arial, sans-serif;
+    }
+
+    .left-section,
+    .right-section {
+      display: flex;
+      align-items: center;
+    }
+
+    .menu-icon {
+      font-size: 24px;
+      margin-right: 15px;
+      cursor: pointer;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 30px;
+      margin-right: 8px;
+    }
+
+    .logo-text {
+      font-size: 22px;
+      font-weight: bold;
+      color: #2d7a3e;
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .premium-button {
+      background-color: #0a944d;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-weight: bold;
+      margin-right: 10px;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    .premium-button .diamond {
+      margin-right: 5px;
+    }
+
+    .user-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-header">
+    <div class="left-section">
+      <div class="menu-icon"> </div>
+      <div class="logo">
+        <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/QuillBot_logo_icon.svg/1024px-QuillBot_logo_icon.svg.png" > -->
+        <span class="logo-text">KLH AI</span>
+      </div>
+    </div>
+
+    <div class="title"></div>
+
+    <div class="right-section">
+      <button class="premium-button">
+        <span class="diamond">💎</span>
+        Upgrade to Premium
+      </button>
+      <div class="user-icon">👤</div>
+    </div>
+  </div>
+</body>
+</html>

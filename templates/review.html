@@ -1,0 +1,196 @@
+<!-- 
+{% block content %}
+  <div class="container-wrapper">
+    <div class="chatgpt-container">
+      <div class="header">Review Page</div>
+      <p style="text-align: center;">This is where user reviews or AI detection feedback can go.</p>
+    </div>
+  </div>
+{% endblock %} -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Reviews</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .review-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .review {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .review-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .review-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+        
+        .review-author {
+            font-weight: bold;
+        }
+        
+        .review-date {
+            color: #666;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+        
+        .stars {
+            color: gold;
+            margin: 10px 0;
+        }
+        
+        .review-text {
+            margin-top: 10px;
+        }
+        
+        .back-button {
+            display: block;
+            width: 150px;
+            padding: 10px 15px;
+            margin: 0 auto 20px;
+            background-color: #4a5568;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .back-button:hover {
+            background-color: #2d3748;
+        }
+    </style>
+</head>
+<body>
+    <h1>Customer Reviews</h1>
+    
+    <div class="review-container">
+        <!-- Review 1 -->
+        <div class="review">
+            <div class="review-header">
+                <div class="review-avatar">JD</div>
+                <div>
+                    <div class="review-author">John Doe</div>
+                    <div class="review-date">April 2, 2025</div>
+                </div>
+            </div>
+            <div class="stars">★★★★★</div>
+            <div class="review-text">
+                Exceptional service and quality! I've been a customer for over three years now and have never been disappointed. The attention to detail and customer care is unmatched in the industry.
+            </div>
+        </div>
+        
+        <!-- Review 2 -->
+        <div class="review">
+            <div class="review-header">
+                <div class="review-avatar">JS</div>
+                <div>
+                    <div class="review-author">Jane Smith</div>
+                    <div class="review-date">March 28, 2025</div>
+                </div>
+            </div>
+            <div class="stars">★★★★☆</div>
+            <div class="review-text">
+                Very happy with my purchase. The product arrived earlier than expected and works perfectly. Would have given 5 stars but the packaging was slightly damaged upon arrival.
+            </div>
+        </div>
+        
+        <!-- Review 3 -->
+        <div class="review">
+            <div class="review-header">
+                <div class="review-avatar">RM</div>
+                <div>
+                    <div class="review-author">Robert Miller</div>
+                    <div class="review-date">March 25, 2025</div>
+                </div>
+            </div>
+            <div class="stars">★★★★★</div>
+            <div class="review-text">
+                Absolutely blown away by the quality and performance. This exceeded all my expectations and I've already recommended it to several friends. Customer support was also extremely helpful when I had questions.
+            </div>
+        </div>
+        
+        <!-- Review 4 -->
+        <div class="review">
+            <div class="review-header">
+                <div class="review-avatar">AJ</div>
+                <div>
+                    <div class="review-author">Amanda Johnson</div>
+                    <div class="review-date">March 20, 2025</div>
+                </div>
+            </div>
+            <div class="stars">★★★☆☆</div>
+            <div class="review-text">
+                Good product overall but took some time to figure out how to use it properly. The instruction manual could be clearer. Once I got the hang of it though, it worked well for my needs.
+            </div>
+        </div>
+        
+        <!-- Review 5 -->
+        <div class="review">
+            <div class="review-header">
+                <div class="review-avatar">TW</div>
+                <div>
+                    <div class="review-author">Thomas Wilson</div>
+                    <div class="review-date">March 15, 2025</div>
+                </div>
+            </div>
+            <div class="stars">★★★★★</div>
+            <div class="review-text">
+                I've tried many similar products and this is by far the best one on the market. The build quality is exceptional and it's clear that a lot of thought went into the design. Worth every penny!
+            </div>
+        </div>
+        
+        <!-- Review 6 -->
+        <div class="review">
+            <div class="review-header">
+                <div class="review-avatar">SL</div>
+                <div>
+                    <div class="review-author">Sarah Lee</div>
+                    <div class="review-date">March 10, 2025</div>
+                </div>
+            </div>
+            <div class="stars">★★★★☆</div>
+            <div class="review-text">
+                I'm very satisfied with this purchase. Shipping was fast and the product works as advertised. The only minor issue is that the color is slightly different from what was shown online.
+            </div>
+        </div>
+    </div>
+    
+    <a href="javascript:history.back()" class="back-button">Back</a>
+</body>
+</html>
